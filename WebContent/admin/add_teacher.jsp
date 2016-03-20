@@ -15,70 +15,188 @@
 <script src="js/jquery.js"></script>
 <script src="js/jquery-git1.min.js"></script>
 <script src="js/jquery-sortable-lists.min.js"></script>
+<script type="text/javascript" src="ueditor1_4_3-utf8-jsp/ueditor.config.js"></script>
+<script type="text/javascript" src="ueditor1_4_3-utf8-jsp/ueditor.all.min.js"></script>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	  <script src="js/html5shiv.js"></script>
+	   <script src="js/respond.min.js"></script>
+	<![endif]-->
+<link rel="stylesheet" type="text/css" href="css/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<script src="css/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 
 </head>
 <script type="text/javascript">
 	
 </script>
 <body>
-错误信息：<s:property value ="errorMsg"/>
 
-	<form action = "Admin/saveTeacher" method = "post" enctype="multipart/form-data">
-		<input type='file' name ="upload"/>
-		姓名:<input type="text" name="teacher.name" /> 
-		名族:<input type="text" name="teacher.nation" />  
-		 性别: 
-		 <select name="teacher.isMan">
-		 	<option value='true'>男</option>
-		 	
-		 	<option value='false'>女</option>
-		 </select>
-		<br> <br>
-		学历:<input type="text" name="teacher.educationbg" /> 
-		出生日期:<input type="text" name="teacher.birth" /> 
-		 <br> <br> 
-		联系电话:<input type="text" name="teacher.phone" />
-		联系邮箱:<input type="text" name="teacher.email" /> 
-		<br> <br>
-		 职称:
-		<select name="teacher.title.id"> 
-		
-		 	<option value='-1'>无</option>
-		<s:iterator value="titles">
-			<option value='<s:property value="id" />'>
-				<s:property value="name" />
-			</option>
-		</s:iterator> </select> 
-		职务:
-		<select name="teacher.job.id"> 
-		
-		 	<option value='-1'>无</option>
-		<s:iterator value="jobs">
-			<option value='<s:property value="id" />'>
-				<s:property value="name" />
-			</option>
-		</s:iterator> </select>
-		 分类: 
-		 <select name="teacher.category.id"> 
-		 
-		 	<option value='-1'>无</option>
-		 <s:iterator value="categories">
-			<option value='<s:property value="id" />'>
-				<s:property value="name" />
-			</option>
-		</s:iterator> </select>
-		 是否名师: 
-		 <select name="teacher.isFamous">
-		 	<option value='true'>是</option>
-		 	
-		 	<option value='false'>否</option>
-		 </select>
-		 <input type = "submit"/>
-		 <br>
-		 <br>
-		 个人经历：
-		 <br>
-		 <textarea name= "teacher.introduction" rows="50" cols="120"></textarea>
-	</form>
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="col-md-2">
+			<ul>
+				<li>
+					<a href = "Admin/addTeacher">添加教师信息</a>
+				</li>
+				<li>
+					<a href = "Admin/manageTeacherTitle">编辑教师职务职称等信息</a>
+				</li>
+				<li>
+					<a href = "Admin/modifyTeacherNo">教师列表</a>
+				</li>
+				<li>
+					<a href = "Admin/addArticle">添加文章</a>
+				</li>
+				<li>
+					<a href = "Admin/articleList?cname=新闻&pageNo=1&step=5">修改文章</a>
+				</li>
+				<li>
+					<a href = "Admin/pageList">修改二级页面</a>
+				</li>
+			</ul>
+		</div>
+		<div class="col-md-10">
+			错误信息：<s:property value ="errorMsg"/>
+
+			<form class = "form-inline" action = "Admin/saveTeacher" method = "post" enctype="multipart/form-data">
+				<br>
+				<label for="file">上传照片</label>
+				<input type='file' id="file" class="file" name ="upload"/>
+				<br>
+				<div class="form-group">
+				    <label for="InputName">姓名</label>
+				    <input type="text" class="form-control" id="InputName" placeholder="Your Name" name="teacher.name"/>
+				 </div>
+
+				 <div class="form-group">
+				    <label for="InputNation">名族</label>
+				    <input type="text" class="form-control" id="InputNation" placeholder="Your Nation" name= "teacher.nation"/>
+				 </div>
+
+				<div class="form-group">
+				    <label for="isMan">性别</label>
+				    <select class="form-control">
+						<option value='true'>男</option>
+						<option value='false'>女</option>
+					</select>
+				 </div>
+				<br>
+				<br>
+
+				<div class="form-group">
+				    <label for="educationbg">学历</label>
+				    <input type="text" class="form-control" id="educationbg" placeholder="Your educationbg" name="teacher.educationbg"/>
+				 </div>
+
+				 <div class="form-group">
+				    <label for="birth">出生日期</label>
+				    <input type="text" class="form-control" id="birth" placeholder="Your birthday" name="teacher.birth"/>
+				 </div>
+
+				 <br> 
+				 <br>
+				
+				<div class="form-group">
+				    <label for="phone">联系电话</label>
+				    <input type="text" class="form-control" id="phone" placeholder="Your phone" name="teacher.phone"/>
+				 </div>
+
+				 <div class="form-group">
+				    <label for="email">联系邮箱</label>
+				    <input type="text" class="form-control" id="email" placeholder="Your email" name="teacher.email"/>
+				 </div>
+
+				<br>
+				<br>
+
+				<div class="form-group">
+				    <label for="room">办公室</label>
+				    <input type="text" class="form-control" id="room" placeholder="Your room" name="teacher.room"/>
+				 </div>
+
+				 <br>
+				 <br>
+
+				<div class="form-group">
+				    <label for="title">职称</label>
+					<select class="form-control" id = "title" name="teacher.title.id"> 
+				
+				 	<option value='-1'>无</option>
+					<s:iterator value="titles">
+						<option value='<s:property value="id" />'>
+						<s:property value="name" />
+						</option>
+					</s:iterator> 
+					</select> 
+				</div>
+
+				<div class="form-group">
+				    <label for="job">职务</label>
+					<select class="form-control" name="teacher.job.id" id="job"> 
+				
+				 	<option value='-1'>无</option>
+					<s:iterator value="jobs">
+						<option value='<s:property value="id" />'>
+							<s:property value="name" />
+						</option>
+					</s:iterator> 
+					</select>
+				</div>
+
+				<div class="form-group">
+				    <label for="category">分类</label>
+					<select class="form-control" id = "category" name="teacher.category.id"> 
+				 
+				 	<option value='-1'>无</option>
+					 <s:iterator value="categories">
+						<option value='<s:property value="id" />'>
+							<s:property value="name" />
+						</option>
+					</s:iterator> 
+					</select>
+				</div>
+
+				<div class="form-group">
+				    <label for="isFamous">是否名师</label>
+					<select class = "form-control" id = "isFamous" name="teacher.isFamous">
+				 	<option value='true'>是</option>
+				 	
+				 	<option value='false'>否</option>
+					</select>
+				</div>
+
+				 
+				<input type = "submit"/>
+				<br>
+				<br>
+				个人经历：
+				<br>
+
+
+				<textarea name= "teacher.introduction" id="content" style="margin:10px 0px"></textarea>
+				<script type="text/javascript">
+					UEDITOR_CONFIG.UEDITOR_HOME_URL = 'ueditor1_4_3-utf8-jsp/';
+					var ue = UE. getEditor('content');
+					ue.ready(function(){
+						ue.setContent('<s:property value='article.content' escape = 'false'/>');
+					});
+				</script>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+
+
+
 </body>
+<script type="text/javascript">
+	function setFocus() {
+	    UE.getEditor('content').focus();
+	}
+</script>   
 </html>

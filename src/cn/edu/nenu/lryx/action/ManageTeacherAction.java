@@ -3,6 +3,8 @@ package cn.edu.nenu.lryx.action;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -18,7 +20,9 @@ import org.springframework.stereotype.Component;
 import com.opensymphony.xwork2.ActionSupport;
 
 import cn.edu.nenu.lryx.config.ErrorMsg;
+import cn.edu.nenu.lryx.model.Article;
 import cn.edu.nenu.lryx.model.Teacher;
+import cn.nenu.edu.lryx.service.ArticleService;
 import cn.nenu.edu.lryx.service.TeacherService;
 
 /**   
@@ -35,39 +39,41 @@ import cn.nenu.edu.lryx.service.TeacherService;
 @Namespace(value="/Admin")
 public class ManageTeacherAction {
 	@Resource
-	private TeacherService as;
+	private TeacherService ts;
+
 	private int id;
 	private String name;
 	private Teacher teacher;
-	private String errorMsg;
 	private File upload;            //文件
 	private String uploadFileName;  //文件名
 	private String filePath;      //文件路径
+	private Map<String,Object> jsonMap;
+	private Map<Integer,Integer> itemNoMap;
 
-	public TeacherService getAs() {
-		return as;
+	public Map<Integer, Integer> getItemNoMap() {
+		return itemNoMap;
 	}
-
-	public void setAs(TeacherService as) {
-		this.as = as;
+	public void setItemNoMap(Map<Integer, Integer> itemNoMap) {
+		this.itemNoMap = itemNoMap;
 	}
-
-	public String getErrorMsg() {
-		return errorMsg;
+	public Map<String, Object> getJsonMap() {
+		return jsonMap;
 	}
-
-	public void setErrorMsg(String errorMsg) {
-		this.errorMsg = errorMsg;
+	public void setJsonMap(Map<String, Object> jsonMap) {
+		this.jsonMap = jsonMap;
 	}
-
+	public TeacherService getTs() {
+		return ts;
+	}
+	public void setTs(TeacherService ts) {
+		this.ts = ts;
+	}
 	public File getUpload() {
 		return upload;
 	}
-
 	public void setUpload(File upload) {
 		this.upload = upload;
 	}
-
 	public String getUploadFileName() {
 		return uploadFileName;
 	}
@@ -115,11 +121,16 @@ public class ManageTeacherAction {
 	 * @throws
 	 */
 	@Action(value = "addTeacherJob",results = {
-			@Result(name = "success",type = "redirect",location = "/Admin/manageTeacherTitle")}
-	,interceptorRefs={@InterceptorRef(value = "defaultStack")})  
+			@Result(name = "success", type="json",params = {"root", "jsonMap"})})  
 	public String addJob(){
-		boolean can = as.addTeacherJob(name);
-		if(!can) errorMsg = ErrorMsg._sameTeacherJobNameError_;
+		boolean can = ts.addTeacherJob(name);
+		jsonMap = new HashMap<>();
+		if(!can ){
+			ActionUtil.setJsonMap(jsonMap, false, "添加失败！");
+		}else {
+			ActionUtil.setJsonMap(jsonMap, true, "finish = ture表示操作成功，"
+					+ "跳转到Admin/manageTeacherTitle，如果finish=false,alert(errorMsg)");
+		}
 		return "success";
 	}
 	/**
@@ -129,12 +140,17 @@ public class ManageTeacherAction {
 	 * @return String 
 	 * @throws
 	 */
-	@Action(value = "delTeacherJob",results = {
-			@Result(name = "success",type = "redirect",location = "/Admin/manageTeacherTitle")}
-	,interceptorRefs={@InterceptorRef(value = "defaultStack")})  
+	@Action(value = "delTeacherJob",results =  {
+			@Result(name = "success", type="json",params = {"root", "jsonMap"})})  
 	public String delJob(){
-		boolean can = as.deleteTeacherJob(id);
-		if(!can) errorMsg = ErrorMsg._deleteTeacherJobEroor_;
+		boolean can = ts.deleteTeacherJob(id);
+		jsonMap = new HashMap<>();
+		if(!can ){
+			ActionUtil.setJsonMap(jsonMap, false, "删除失败！");
+		}else {
+			ActionUtil.setJsonMap(jsonMap, true, "finish = ture表示操作成功，"
+					+ "跳转到Admin/manageTeacherTitle，如果finish=false,alert(errorMsg)");
+		}
 		return "success";
 	}
 	/**
@@ -144,11 +160,16 @@ public class ManageTeacherAction {
 	 * @throws
 	 */
 	@Action(value = "addTeacherTitle",results = {
-			@Result(name = "success",type = "redirect",location = "/Admin/manageTeacherTitle")}
-	,interceptorRefs={@InterceptorRef(value = "defaultStack")})  
+			@Result(name = "success", type="json",params = {"root", "jsonMap"})}) 
 	public String addTitle(){
-		boolean can = as.addTeacherTitle(name);
-		if(!can) errorMsg = ErrorMsg._sameTeacherTitleNameError_;
+		boolean can = ts.addTeacherTitle(name);
+		jsonMap = new HashMap<>();
+		if(!can ){
+			ActionUtil.setJsonMap(jsonMap, false, "添加失败！");
+		}else {
+			ActionUtil.setJsonMap(jsonMap, true, "finish = ture表示操作成功，"
+					+ "跳转到Admin/manageTeacherTitle，如果finish=false,alert(errorMsg)");
+		}
 		return "success";
 	}
 	/**
@@ -159,11 +180,16 @@ public class ManageTeacherAction {
 	 * @throws
 	 */
 	@Action(value = "delTeacherTitle",results = {
-			@Result(name = "success",type = "redirect",location = "/Admin/manageTeacherTitle")}
-	,interceptorRefs={@InterceptorRef(value = "defaultStack")})  
+			@Result(name = "success", type="json",params = {"root", "jsonMap"})}) 
 	public String delTitle(){
-		boolean can = as.deleteTeacherTitle(id);
-		if(!can) errorMsg = ErrorMsg._deleteTeacherTitleEroor_;
+		boolean can = ts.deleteTeacherTitle(id);
+		jsonMap = new HashMap<>();
+		if(!can ){
+			ActionUtil.setJsonMap(jsonMap, false, "删除失败！");
+		}else {
+			ActionUtil.setJsonMap(jsonMap, true, "finish = ture表示操作成功，"
+					+ "跳转到Admin/manageTeacherTitle，如果finish=false,alert(errorMsg)");
+		}
 		return "success";
 	}
 	/**
@@ -174,11 +200,16 @@ public class ManageTeacherAction {
 	 * @throws
 	 */
 	@Action(value = "delTeacherCategory",results = {
-			@Result(name = "success",type = "redirect",location = "/Admin/manageTeacherTitle")}
-	,interceptorRefs={@InterceptorRef(value = "defaultStack")})  
+			@Result(name = "success", type="json",params = {"root", "jsonMap"})}) 
 	public String delCategory(){
-		boolean can = as.deleteTeacherCategory(id);
-		if(!can) errorMsg = ErrorMsg._deleteTeacherCategoryEroor_;
+		boolean can = ts.deleteTeacherCategory(id);
+		jsonMap = new HashMap<>();
+		if(!can ){
+			ActionUtil.setJsonMap(jsonMap, false, "删除失败！");
+		}else {
+			ActionUtil.setJsonMap(jsonMap, true, "finish = ture表示操作成功，"
+					+ "跳转到Admin/manageTeacherTitle，如果finish=false,alert(errorMsg)");
+		}
 		return "success";
 	}
 
@@ -189,11 +220,16 @@ public class ManageTeacherAction {
 	 * @throws
 	 */
 	@Action(value = "addTeacherCategory",results = {
-			@Result(name = "success",type = "redirect",location = "/Admin/manageTeacherTitle")}
-	,interceptorRefs={@InterceptorRef(value = "defaultStack")})  
+			@Result(name = "success", type="json",params = {"root", "jsonMap"})})  
 	public String saveJob(){
-		boolean can = as.addTeacherCategory(name);
-		if(!can) errorMsg = ErrorMsg._sameTeacherCategoryNameError_;
+		boolean can = ts.addTeacherCategory(name);
+		jsonMap = new HashMap<>();
+		if(!can ){
+			ActionUtil.setJsonMap(jsonMap, false, "添加失败！");
+		}else {
+			ActionUtil.setJsonMap(jsonMap, true, "finish = ture表示操作成功，"
+					+ "跳转到Admin/manageTeacherTitle，如果finish=false,alert(errorMsg)");
+		}
 		return "success";
 	}
 	/**
@@ -204,12 +240,21 @@ public class ManageTeacherAction {
 	 * @throws
 	 */
 	@Action(value = "saveTeacher",results = {
-			@Result(name = "success",type = "redirect",location = "/Admin/addTeacher")}
-	,interceptorRefs={@InterceptorRef(value = "defaultStack")})  
+			@Result(name = "success", type="json",params = {"root", "jsonMap"})})
 	public String saveTeacher(){
-		filePath = upload();
-		teacher.setImgUrl(filePath);
-		id = as.addTeacher(teacher);
+		jsonMap = new HashMap<>();
+		try{
+
+			filePath =  ActionUtil.upload("/t-h-img", upload, uploadFileName);
+			teacher.setImgUrl(filePath);
+			id = ts.addTeacher(teacher);
+			jsonMap = new HashMap<>();
+			ActionUtil.setJsonMap(jsonMap, true, "finish = ture表示操作成功，"
+					+ "跳转到teacher?id=id，如果finish=false,alert(errorMsg)");
+			jsonMap.put("id", id);
+		}catch(Exception e){
+			ActionUtil.setJsonMap(jsonMap, false, "添加失败！");
+		}
 		return "success";
 	}
 	/**
@@ -220,60 +265,95 @@ public class ManageTeacherAction {
 	 * @throws
 	 */
 	@Action(value = "deleteTeacher",results = {
-			@Result(name = "success",type = "redirect",location = "/Admin/modifyTeacherNo"),
-			@Result(name = "notfound",location = "/404.jsp")}
-	,interceptorRefs={@InterceptorRef(value = "defaultStack")})  
+			@Result(name = "success", type="json",params = {"root", "jsonMap"}),
+			@Result(name = "notfound",location = "/404.jsp")})  
 	public String  deleteTeacher(){
-		boolean can = as.deleteTeacherById(id);
+//		(name = "success",type = "redirect",location = "/Admin/modifyTeacherNo")
+		boolean can = ts.deleteTeacherById(id);
+		jsonMap = new HashMap<>();
 		if(!can) return "notfound";
-		return "success";
+		else{
+			jsonMap = new HashMap<>();
+			ActionUtil.setJsonMap(jsonMap, true, "成功，跳转到/Admin/modifyTeacherNo");
+			return "success";
+		}
 	}
 	/**
 	 * 
 	 * @Title: modifyTeacher 
-	 * @Description: 修改教师信息,url为Admin/modifyTeacher，参数参考页面modify_teacher.jsp
+	 * @Description: 修改教师信息,url为Admin/modifyTeacherDone，参数参考页面modify_teacher.jsp
 	 * @return String 
 	 * @throws
 	 */
 	@Action(value = "modifyTeacherDone",results = {
-			@Result(name = "success",type = "redirect",location = "/Admin/index"),
-			@Result(name = "notfound",type = "redirect",location = "/404.jsp")}
-	,interceptorRefs={@InterceptorRef(value = "defaultStack")})  
+			@Result(name = "success", type="json",params = {"root", "jsonMap"}),
+			@Result(name = "notfound",location = "/404.jsp")})  
 	public String modifyTeacher(){
-		filePath = upload();
+		filePath = ActionUtil.upload("t-h-img", upload, uploadFileName);
+		jsonMap = new HashMap<>();
 		if(!filePath.equals("")) {
 			teacher.setImgUrl(filePath);
 		}
-		System.out.println("###"+filePath);
-		boolean can = as.modifyTeacher(teacher);
-		if(can ) return "success";
+		boolean can = ts.modifyTeacher(teacher);
+		if(can ) {
+			jsonMap = new HashMap<>();
+			ActionUtil.setJsonMap(jsonMap, true, "跳转到teacher?id=id");
+			jsonMap.put("id", teacher.getId());
+			return "success";
+		}
 		else return "notfound";
 	}
-	private String upload(){
-		System.out.println("90909090909090");
-		String path = ServletActionContext.getServletContext().getRealPath("/t-h-img");
-		String rp = "";
-		try {
-			if (this.upload != null) {
-				File f = upload;
-				String fileName = java.util.UUID.randomUUID().toString(); // 采用时间+UUID的方式随即命名
-				String name = fileName+ uploadFileName.substring(uploadFileName.lastIndexOf(".")); // 保存在硬盘中的文件名
-
-				FileInputStream inputStream = new FileInputStream(f);
-				FileOutputStream outputStream = new FileOutputStream(path+ "\\" + name);
-				byte[] buf = new byte[1024];
-				int length = 0;
-				while ((length = inputStream.read(buf)) != -1) {
-					outputStream.write(buf, 0, length);
-				}
-				inputStream.close();
-				outputStream.flush();
-				rp = "t-h-img"+"/"+name;
-				outputStream.close();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+	/**
+	* @Title: mdifyJobNo 
+	* @Description: 修改teahcer job的顺序 ，url是 Admin/modifyJobNo，参数为一个Map<Integer,Integer>表示顺序
+	* @return String 
+	* @throws
+	 */
+	@Action(value = "modifyJobNo",results = {
+			@Result(name = "success", type="json",params = {"root", "jsonMap"})})  
+	public String mdifyJobNo(){
+		boolean can  = ts.modifyJobsNo(itemNoMap);
+		if(can){
+			ActionUtil.setJsonMap(jsonMap, true,"修改职务顺序成功！");
+		}else {
+			ActionUtil.setJsonMap(jsonMap, false, "修改职务顺序失败！");
 		}
-		return rp;
+		return "success";
+	}
+	/**
+	 * 
+	* @Title: mdifyCategoryNo 
+	* @Description:修改教师类别的顺序 url是Admin/modifyCategoryNo,参数是一个Map
+	* @return String 
+	* @throws
+	 */
+	@Action(value = "modifyCategoryNo",results = {
+			@Result(name = "success", type="json",params = {"root", "jsonMap"})})  
+	public String mdifyCategoryNo(){
+		boolean can  = ts.modifyCategory(itemNoMap);
+		if(can){
+			ActionUtil.setJsonMap(jsonMap, true,"修改类别顺序成功！");
+		}else {
+			ActionUtil.setJsonMap(jsonMap, false, "修改类别顺序失败！");
+		}
+		return "success";
+	}
+	/**
+	 * 
+	* @Title: mdifyTeacherNo 
+	* @Description: 修改教师类别的顺序 url是Admin/modifyTeacherNo,参数是一个教师类别的id和一个Map
+	* @return String 
+	* @throws
+	 */
+	@Action(value = "modifyTeacherNo",results = {
+			@Result(name = "success", type="json",params = {"root", "jsonMap"})})  
+	public String mdifyTeacherNo(){
+		boolean can  = ts.modifyTeacherNo(id, itemNoMap);
+		if(can){
+			ActionUtil.setJsonMap(jsonMap, true,"修改职务顺序成功！");
+		}else {
+			ActionUtil.setJsonMap(jsonMap, false, "修改职务顺序失败！");
+		}
+		return "success";
 	}
 }

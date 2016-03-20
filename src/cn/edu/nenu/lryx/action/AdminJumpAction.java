@@ -12,6 +12,8 @@ import org.apache.struts2.convention.annotation.Result;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import cn.edu.nenu.lryx.dto.ArticleListWithPageInfoDto;
+import cn.edu.nenu.lryx.model.Article;
 import cn.edu.nenu.lryx.model.ArticleCategory;
 import cn.edu.nenu.lryx.model.Teacher;
 import cn.edu.nenu.lryx.model.TeacherCategory;
@@ -44,9 +46,52 @@ public class AdminJumpAction {
 	private List<Teacher> teachers;
 	private Teacher teacher;
 	private List<ArticleCategory> acategorise;
+	private Article article;
+	private String cname;
+	private ArticleListWithPageInfoDto alwpi;
+	private int pageNo;
+	private int step;
 	
 	
+	public int getPageNo() {
+		return pageNo;
+	}
 
+	public void setPageNo(int pageNo) {
+		this.pageNo = pageNo;
+	}
+
+	public int getStep() {
+		return step;
+	}
+
+	public void setStep(int step) {
+		this.step = step;
+	}
+
+	public ArticleListWithPageInfoDto getAlwpi() {
+		return alwpi;
+	}
+
+	public void setAlwpi(ArticleListWithPageInfoDto alwpi) {
+		this.alwpi = alwpi;
+	}
+
+	public String getCname() {
+		return cname;
+	}
+
+	public void setCname(String cname) {
+		this.cname = cname;
+	}
+
+	public Article getArticle() {
+		return article;
+	}
+
+	public void setArticle(Article article) {
+		this.article = article;
+	}
 
 	public ArticleService getAs() {
 		return as;
@@ -145,7 +190,7 @@ public class AdminJumpAction {
 	/**
 	 * 
 	* @Title: addTeacher 
-	* @Description:跳转到添加教师信息页面，ulr路径为Admin/addTeacher，页面返回3个list，分别为titles(职称列表),jobs(职务列表),categories(类别列表)
+	* @Description:跳转到添加教师页面，ulr路径为Admin/addTeacher，页面返回3个list，分别为titles(职称列表),jobs(职务列表),categories(类别列表)
 	* @return String 
 	* @throws
 	 */
@@ -193,11 +238,72 @@ public class AdminJumpAction {
 		if(teacher == null) return "notfound";
 		return "success";
 	}
-	@Action(value = "index",results = {
-			@Result(name = "success",location = "/admin/a_a.jsp")}
+	/**
+	 * 
+	* @Title: jumpToAddArticle
+	* @Description: 跳转到添加信息类文章，url路径为Admin/addArticle
+	* @return String 
+	* @throws
+	 */
+	@Action(value = "addArticle",results = {
+			@Result(name = "success",location = "/admin/add_article.jsp")}
 			,interceptorRefs={@InterceptorRef(value = "defaultStack")})  
-	public String jumpToAddInformation(){
-		acategorise = as.getAllInformationCategory();
+	public String jumpToAddArticle(){
+		acategorise = as.getAllArticleCategory();
+		return "success";
+	}
+	/**
+	 * 
+	* @Title: jumpToAdd2ndPage
+	* @Description: 跳转到添加信息类文章，url路径为Admin/add2ndPage
+	* @return String 
+	* @throws
+	 */
+	@Action(value = "modify2ndPage",results = {
+			@Result(name = "success",location = "/admin/modify_2ndpage.jsp"),
+			@Result(name = "notfound",location = "/404.jsp")}
+			,interceptorRefs={@InterceptorRef(value = "defaultStack")})  
+	public String jumpToModify2ndPage(){
+		System.out.println(cname);
+		List<Article > l = as.getAllArticleByCategoryName(cname);
+		if(l == null || l.size() == 0) return "notfound";
+		article = l.get(0);
+		return "success";
+	}
+/**
+ * 
+* @Title: jumpTo2ndPageList 
+* @Description: TODO
+* @return String 
+* @throws
+ */
+	@Action(value = "pageList",results = {
+			@Result(name = "success",location = "/admin/2ndpagelist.jsp"),
+			@Result(name = "notfound",location = "/404.jsp")}
+			,interceptorRefs={@InterceptorRef(value = "defaultStack")})  
+	public String jumpTo2ndPageList(){
+		acategorise = as.getAll2ndPageCategory();
+		return "success";
+	}
+	@Action(value = "articleList",results = {
+			@Result(name = "success",location = "/admin/articlelist.jsp"),
+			@Result(name = "notfound",location = "/404.jsp")}
+			,interceptorRefs={@InterceptorRef(value = "defaultStack")})  
+	public String jumpToArticleList(){
+		acategorise = as.getAllArticleCategory();
+		alwpi = as.getAllArticleByCategoryNameAndPageNo(cname, pageNo, step);
+		if(alwpi.getArticles() == null) 
+			return "notfound";
+		return "success";
+	}
+	@Action(value = "modifyArticle",results = {
+			@Result(name = "success",location = "/admin/modify_article.jsp"),
+			@Result(name = "notfound",location = "/404.jsp")}
+			,interceptorRefs={@InterceptorRef(value = "defaultStack")})  
+	public String jumpTomodifyArticle(){
+		article = as.getArticleById(id);
+		acategorise = as.getAllArticleCategory();
+		if(article == null) return "notfound";
 		return "success";
 	}
 	/**
@@ -211,6 +317,7 @@ public class AdminJumpAction {
 			@Result(name = "success",location = "/admin/i.jsp")}
 			,interceptorRefs={@InterceptorRef(value = "defaultStack")})  
 	public String jumpToAdmin(){
+		categories = ats.getAllCategory();
 		return "success";
 	}
 	

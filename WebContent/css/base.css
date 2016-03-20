@@ -46,6 +46,10 @@
 .section1Content{
     color:cornflowerblue;
 }
+.section1Content a{
+    color:cornflowerblue;
+    text-decoration: none;
+}
 .section1Top{text-align: center; margin: 40px 0px;}
 
 .section1Top li{display:inline-block; padding: 0 30px; font-family: "Microsoft YaHei UI"; font-size: 1.6em; position: relative}
