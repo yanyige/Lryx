@@ -127,10 +127,60 @@ $(function() {
 					</li>
 				</s:iterator>
 			</ul>
+			<input type="button" onclick="submitSequence()"/>
 		</div>
 	</div>
 </div>
-
-
 </body>
+
+<script type="text/javascript">
+
+	function submitSequence(){
+
+		var xhr = new XMLHttpRequest();
+		var itemNoMap = [];
+
+		
+
+		var params = {};
+		var ul = document.getElementById("sTree1");
+		var lis = ul.children;
+		params.id = <s:property value="id" />;
+		for(var i = 0 ; i < lis.length ; i ++){
+			var temp = lis[i].children[0].children[0].action.indexOf('=');
+			temp = lis[i].children[0].children[0].action.substr(temp+1);
+			console.log(temp);
+			params['itemNoMap['+temp+']'] = i+1;
+		}
+		// var jsonParams = JSON.stringify(params);
+		// xhr.open("get" , "t?"+jsonParams);
+		// xhr.send();
+		// xhr.onreadystatechange = function(){
+		// 	if(xhr.readyState == 4){
+		// 		if(xhr.status == 200){
+		// 			alert(xhr.responseText);
+		// 		}else{
+		// 			alert("发生错误"+ xhr.status);
+		// 		}
+		// 	}
+		// }
+		// console.log(params);
+		// var jsonParams = JSON.stringify(params);
+		// xhr.send(jsonParams);
+		// xhr.onreadystatechange = function(){
+		// 	if(xhr.readyState == 4){
+		// 		if(xhr.status == 200){
+		// 			alert(xhr.responseText);
+		// 		}else{
+		// 			alert("发生错误"+ xhr.status);
+		// 		}
+		// 	}
+		// }
+		$.getJSON("t", params, function(json){
+		  alert("JSON Data: " + json.users[3].name);
+		});
+	}
+
+</script>
+
 </html>
