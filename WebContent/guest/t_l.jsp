@@ -48,7 +48,7 @@
             <div class="inner-panel">
                 <div class="panel-head">
                     <div class="b-l"></div>
-                    <div class="b-r">师资力量</div>
+                    <div class="b-r">学校概况</div>
                 </div>
                 <div class="main-panel">
                     <div class="b-l"></div>
@@ -56,56 +56,113 @@
                     <div class="b-r">&gt;</div>
                     <div class="cpanel">
                         <div class="b-l"></div>
-                        <div class="b-r"><a href="survey.jsp">学校介绍</a></div>
+                        <div class="b-r"><a href="pagel?cname=学校介绍">学校介绍</a></div>
                     </div>
                     <div class="cpanel">
                         <div class="b-l"></div>
-                        <div class="b-r"><a href="organization.jsp">组织介绍</a></div>
+                        <div class="b-r"><a href="pagel?cname=组织介绍">组织介绍</a></div>
                     </div>
                     <div class="cpanel">
                         <div class="b-l"></div>
-                        <div class="b-r"><a href="leader.jsp" class="on">学校领导</a></div>
+                        <div class="b-r"><a href="leader">学校领导</a></div>
                     </div>
                 </div>
                 <div class="main-panel">
                     <div class="b-l"></div>
-                    <div class="b-m">学术动态</div>
-                    <div class="b-r"><span>&gt;</span></div>
-                    <div class="cpanel">
-                        <div class="b-l"></div>
-                        <div class="b-r">学术交流</div>
-                    </div>
-                    <div class="cpanel">
-                        <div class="b-l"></div>
-                        <div class="b-r">学术活动</div>
-                    </div>
-                </div>
-                <div class="main-panel">
-                <div class="b-l"></div>
-                <div class="b-m">师资力量</div>
-                <div class="b-r">&gt;</div>
-                <div class="cpanel">
-                    <div class="b-l"></div>
-                    <div class="b-r"><a href="teacherList?id=-1">全体教师</a></div>
-                </div>
-                <s:iterator value="categories">
-                    <div class="cpanel">
-                    <div class="b-l"></div>
-                    <div class="b-r"><a href="teacherList?id=<s:property value="id" />"><s:property value="name" /></a></div>
-                    </div>
-                </s:iterator>
-            </div>
-                <div class="main-panel">
-                    <div class="b-l"></div>
-                    <div class="b-m">远程教学</div>
+                    <div class="b-m">新闻快讯</div>
                     <div class="b-r">&gt;</div>
+                    <div class="cpanel">
+                        <div class="b-l"></div>
+                        <div class="b-r"><a href="pagel?cname=新闻&pageNo=1&step=5">学校新闻</a></div>
+                    </div>
+                    <div class="cpanel">
+                        <div class="b-l"></div>
+                        <div class="b-r"><a href="pagel?cname=学术&pageNo=1&step=5">交流学术</a></div>
+                    </div>
+                    <div class="cpanel">
+                        <div class="b-l"></div>
+                        <div class="b-r"><a href="pagel?cname=公告&pageNo=1&step=5">通知公告</a></div>
+                    </div>
+                </div>
+                <div class="main-panel">
+                    <div class="b-l"></div>
+                    <div class="b-m">师资力量</div>
+                    <div class="b-r">&gt;</div>
+                    <div class="cpanel">
+                        <div class="b-l"></div>
+                        <div class="b-r"><a href="teacherList?id=-1">全体教师</a></div>
+                    </div>
+                    <s:iterator value="categories">
+                        <div class="cpanel">
+                        <div class="b-l"></div>
+                        <div class="b-r"><a href="teacherList?id=<s:property value="id" />"><s:property value="name" /></a></div>
+                        </div>
+                    </s:iterator>
+                </div>
+                <div class="main-panel">
+                    <div class="b-l"></div>
+                    <div class="b-m">培训报名</div>
+                    <div class="b-r">&gt;</div>
+                    <div class="cpanel">
+                        <div class="b-l"></div>
+                        <div class="b-r"><a href="pagel?cname=项目介绍">项目介绍</a></div>
+                    </div>
+                    <div class="cpanel">
+                        <div class="b-l"></div>
+                        <div class="b-r"><a href="pagel?cname=招生简章">招生简章</a></div>
+                    </div>
+                    <div class="cpanel">
+                        <div class="b-l"></div>
+                        <div class="b-r"><a href="pagel?cname=网上报名">网上报名</a></div>
+                    </div>
+                    <div class="cpanel">
+                        <div class="b-l"></div>
+                        <div class="b-r"><a href="pagel?cname=报道流程">报道流程</a></div>
+                    </div>
+                    <div class="cpanel">
+                        <div class="b-l"></div>
+                        <div class="b-r"><a href="pagel?cname=答疑解惑">答疑解惑</a></div>
+                    </div>
+                    <div class="cpanel">
+                        <div class="b-l"></div>
+                        <div class="b-r"><a href="pagel?cname=生活信息">生活信息</a></div>
+                    </div>
+                </div>
+                <div class="main-panel">
+                    <div class="b-l"></div>
+                    <div class="b-m">学院专区</div>
+                    <div class="b-r">&gt;</div>
+                    <div class="cpanel">
+                        <div class="b-l"></div>
+                        <div class="b-r"><a href="pagel?cname=学籍管理">学籍管理</a></div>
+                    </div>
+                    <div class="cpanel">
+                        <div class="b-l"></div>
+                        <div class="b-r"><a href="pagel?cname=学生组织">学生组织</a></div>
+                    </div>
+                    <div class="cpanel">
+                        <div class="b-l"></div>
+                        <div class="b-r"><a href="pagel?cname=学员活动">学员活动</a></div>
+                    </div>
+                    <div class="cpanel">
+                        <div class="b-l"></div>
+                        <div class="b-r"><a href="pagel?cname=课程安排">课程安排</a></div>
+                    </div>
+                    <div class="cpanel">
+                        <div class="b-l"></div>
+                        <div class="b-r"><a href="pagel?cname=考试安排">考试安排</a></div>
+                    </div>
+                    <div class="cpanel">
+                        <div class="b-l"></div>
+                        <div class="b-r"><a href="pagel?cname=学习资源">学习资源</a></div>
+                    </div>
                 </div>
             </div>
             <div class="main-content">
                 <div class="main-content-nav">
                     <ul>
-                        <li>首页</li>
-                        <li>学校师资</li>
+                        <li><a href="">首页</a></li>
+                        <li><a href="teacherList?id=-1">师资力量</a></li>
                     </ul>
                 </div>
                 <div class="main-content-c">
@@ -128,7 +185,7 @@
 	                                    
 	                                        
 	                                            <div class="lblock">
-	                                            <img src="images/leader.jpg" alt="" width="105" height="74">
+	                                            <img src='<s:property value="imgUrl"/>' alt="" width="105" height="74">
 	                                            <p><a href = "teacher?id=<s:property value="id" />">
 	                                                <s:property value="name" /></a></p>
 	                                            </div>
@@ -146,9 +203,9 @@
         </div>
         <div class="footer">
             <ul>
-                <li>概况</li>
+                <li><a href="pagel?cname=项目介绍">师资</a>概况</li>
                 <li>机构</li>
-                <li>师资</li>
+                <li><a href="teacherList?id=-1">师资</a></li>
                 <li>教学</li>
                 <li>留学</li>
                 <li>专题</li>

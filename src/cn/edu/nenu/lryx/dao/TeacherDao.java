@@ -49,7 +49,7 @@ public class TeacherDao {
 	 * @throws
 	 */
 	public int addTeacher(Teacher teacher){
-
+		System.out.println(teacher.getJob());
 		TeacherTitle t = findTitleById(teacher.getTitle().getId()); 
 		TeacherJob j = findJobById(teacher.getJob().getId());
 		TeacherCategory c =findCategoryById(teacher.getCategory().getId());
@@ -74,11 +74,10 @@ public class TeacherDao {
 	 * @throws
 	 */
 	public boolean modifyTeacher(Teacher teacher){
-		System.out.println(teacher.getId()+"  "+teacher.getName()+"  "+teacher.getImgUrl());
 		Teacher teacherInDb = findTeacherById(teacher.getId());
 		if(teacherInDb == null) return false;
 		TeacherJob njob = null;
-		if(teacher.getBirth() != null)  njob = findJobById(teacher.getJob().getId());
+		if(teacher.getJob() != null)  njob = findJobById(teacher.getJob().getId());
 		teacher.setJob(njob);
 		TeacherTitle nti = null;
 		if(teacher.getTitle() != null) nti = findTitleById(teacher.getTitle().getId());
@@ -119,7 +118,6 @@ public class TeacherDao {
 		
 		teacher.setCategory(nca);
 		teacherInDb.update(teacher);
-		System.out.println(teacherInDb.getName() +"  "+teacherInDb.getImgUrl());
 
 		getCurrentSession().update(teacherInDb);
 		return true;
@@ -457,4 +455,5 @@ public class TeacherDao {
 				.add(Restrictions.idEq(id))
 				.uniqueResult();
 	}
+//	public List<Teacher>
 }

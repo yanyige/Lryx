@@ -38,11 +38,11 @@ window.onload = function(){
         var wrap = document.getElementById("list-wrapper");
         var boxs = getElementsByClass(wrap , "lblock");
         var viewWidth = document.getElementById("leader-list").offsetWidth - 20; //计算视口的宽度
-        var cols = Math.floor(viewWidth / 105);console.log(cols); //获取一行能存放多少个图片
+        var cols = Math.floor(viewWidth / 120);console.log(cols); //获取一行能存放多少个图片
         var harr = []; //存放所有的图片div
 
 
-        wrap.style.cssText = "width:"+105*cols+"px;margin:0 auto";
+        wrap.style.cssText = "width:"+120*cols+"px;margin:0 auto;";
         for(var i = 0 ; i < boxs.length ; i ++){
             if(i < cols){
                 harr.push(boxs[i].offsetHeight);

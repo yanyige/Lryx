@@ -3,6 +3,7 @@ package cn.edu.nenu.lryx.model;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -46,7 +47,6 @@ public class Teacher {
 	private TeacherCategory category;
 	//办公室
 	private String room;
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getId() {
@@ -55,7 +55,6 @@ public class Teacher {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
 
 	public String getRoom() {
 		return room;
@@ -120,6 +119,7 @@ public class Teacher {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	@Column(columnDefinition = "text")
 	public String getIntroduction() {
 		return introduction;
 	}

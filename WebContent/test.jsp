@@ -18,7 +18,13 @@
 
 </head>
 <script type="text/javascript">
-
+$(document).ready(function() {
+	var params = {"id" : 15,"itemNoMap[1]":2,"itemNoMap[2]":1,"itemNoMap[3]":3};
+	console.log(params);
+	$.getJSON("t",params)
+       
+})
+</script>
 <body>
 	
 </body>

@@ -1,5 +1,8 @@
 package cn.edu.nenu.lryx.action;
 
+import java.util.Map;
+import java.util.Map.Entry;
+
 import org.apache.struts2.components.ActionError;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
@@ -23,6 +26,7 @@ import org.springframework.stereotype.Component;
 @Namespace(value="/")
 public class TestAction {
 	private int id ;
+	private Map<Integer,Integer> itemNoMap;
 	
 	public int getId() {
 		return id;
@@ -32,16 +36,25 @@ public class TestAction {
 		this.id = id;
 	}
 
+
+	public Map<Integer, Integer> getItemNoMap() {
+		return itemNoMap;
+	}
+
+
+	public void setItemNoMap(Map<Integer, Integer> itemNoMap) {
+		this.itemNoMap = itemNoMap;
+	}
+
+
 	@Action(value = "t",results = {
 			@Result(name = "success",type = "redirect",location = "/test.jsp"),
-			@Result(name = "notfound",type = "redirect",location = "/test.jsp")}
-	,interceptorRefs={@InterceptorRef(value = "defaultStack")})  
+			@Result(name = "notfound",type = "redirect",location = "/test.jsp")})  
 	public String testError(){
-		if(id == 1)
-			return "success";
-		else{
-			
-			return "notfound";
+		System.out.println("id = "+id);
+		for(Entry<Integer,Integer> e : itemNoMap.entrySet()){
+			System.out.println(e.getKey()+"  "+e.getValue());
 		}
+		return "success";
 	}
 }

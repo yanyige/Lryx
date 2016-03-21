@@ -8,6 +8,7 @@ package cn.edu.nenu.lryx.model;
 * @version V1.0   
 */
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -79,6 +80,7 @@ public class Article{
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	@Column(columnDefinition = "text")
 	public String getContent() {
 		return content;
 	}
